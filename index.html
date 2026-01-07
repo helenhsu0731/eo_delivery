@@ -40,17 +40,6 @@
             border-bottom: 5px solid var(--primary-color);
         }
 
-         .hero-desc {
-            color: #ffffff;
-            font-size: 1.15rem;
-            font-weight: 500;
-            max-width: 700px;
-            margin: 0 auto 30px auto; /* 下方留白 */
-            text-shadow: 0 2px 5px rgba(0,0,0,0.7); /* 增加陰影讓文字在背景圖上更清晰 */
-            line-height: 1.6;
-            letter-spacing: 1px;
-        }
-
         .hero-content { max-width: 800px; margin: 0 auto; }
 
         .sub-title {
@@ -66,34 +55,29 @@
             letter-spacing: 1px;
         }
 
-        /* --- 修改標題樣式 --- */
+        /* 標題樣式 (粗框設計) */
         .main-title {
-           color: #ffffff;             /* 文字內部填充白色 */
-           font-size: 3.5rem;          /* 字體放大 */
-           font-weight: 900;           /* 字體極粗 */
-           margin: 0;
-           margin-bottom: 20px;
-           letter-spacing: 3px;        /* 字距拉開，避免粗邊框黏在一起 */
-           line-height: 1.2;
-    
-         /* --- 關鍵邊框設定 --- */
-           -webkit-text-stroke: 3px #41a573; /* 設定 3px 寬的綠色邊框 */
-           paint-order: stroke fill;         /* 確保邊框畫在文字「後面」，不會把白字變細 */
-    
-         /* --- 增加立體感 (選用) --- */
-         /* 如果覺得太平，可以加上這行硬陰影 */
-         /* text-shadow: 3px 3px 0px #2e7d55; */ 
-         }
+            color: #ffffff;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 0;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            line-height: 1.2;
+            -webkit-text-stroke: 3px #41a573;
+            paint-order: stroke fill;
+        }
 
-
-/* 手機版 RWD 微調 */
-@media (max-width: 768px) {
-    .main-title { 
-        font-size: 2.2rem; 
-        -webkit-text-stroke: 2px #41a573; /* 手機版邊框稍微細一點 */
-    }
-}
-
+        .hero-desc {
+            color: #ffffff;
+            font-size: 1.15rem;
+            font-weight: 500;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.7);
+            line-height: 1.6;
+            letter-spacing: 1px;
+        }
 
         .search-container { max-width: 600px; margin: 0 auto; position: relative; }
         .search-input {
@@ -106,11 +90,30 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        /* --- 容器網格 --- */
+        /* --- 容器與分區設定 (新) --- */
         .container {
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px 80px 20px;
+        }
+
+        /* 區段標題樣式 */
+        .section-header {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-color);
+            margin: 50px 0 25px 0;
+            padding-left: 15px;
+            border-left: 6px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        /* 第一個標題距離上方近一點 */
+        #title-main { margin-top: 10px; }
+
+        /* 網格系統 (改為 class 控制) */
+        .restaurant-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 30px;
@@ -136,7 +139,6 @@
             border-bottom: 1px solid #f0f0f0;
         }
         
-        /* LOGO 設定 */
         .card-logo {
             width: 60px;
             height: 60px;
@@ -213,13 +215,11 @@
             font-size: 0.95rem;
             color: #666;
             margin-bottom: 15px;
-            
-            /* 限制行數 CSS */
             display: -webkit-box;
-            -webkit-line-clamp: 3; /* 限制顯示3行 */
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            height: 4.5em; /* 高度固定，確保整齊 */
+            height: 4.5em;
         }
         .divider {
             border-top: 2px dotted var(--primary-color);
@@ -262,92 +262,59 @@
             width: 50px; height: 50px; border-radius: 50%;
             border: none; cursor: pointer; display: none;
             font-size: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 99;
+            transition: bottom 0.3s ease;
         }
 
+        /* ★★★ 手機版專用修正 ★★★ */
+         @media (max-width: 768px) {
+            #scrollTopBtn {
+                /* 手機版將置頂按鈕往上提，避開底部的投票按鈕 */
+                bottom: 120px; 
+                right: 20px; /* 手機版靠右邊界稍微縮小一點 */
+            }
+        }
+
+        /* 投票按鈕 (底部置中懸浮) */
+        .vote-fab-centered {
+            position: fixed;
+            bottom: 30px;
+            left: 0; right: 0; margin: 0 auto;
+            z-index: 10000;
+            width: 90%; max-width: 500px;
+            background: linear-gradient(135deg, #ff512f 0%, #dd2476 100%);
+            color: white;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(221, 36, 118, 0.6);
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+            padding: 15px 0;
+            text-decoration: none; font-weight: 800; font-size: 1.2rem; letter-spacing: 1px;
+            animation: pulse-glow 2s infinite;
+            transition: all 0.3s ease;
+        }
+        .vote-fab-centered:hover {
+            background: linear-gradient(135deg, #ff6b4b 0%, #ff3d85 100%);
+            transform: scale(1.02) translateY(-3px);
+            box-shadow: 0 10px 25px rgba(221, 36, 118, 0.8);
+            animation: none;
+        }
+        .vote-icon { font-size: 1.5rem; }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(221, 36, 118, 0.7); transform: scale(1); }
+            50% { transform: scale(1.03); }
+            70% { box-shadow: 0 0 0 20px rgba(221, 36, 118, 0); transform: scale(1.03); }
+            100% { box-shadow: 0 0 0 0 rgba(221, 36, 118, 0); transform: scale(1); }
+        }
+
+
+        /* --- 手機版與平板的微調 --- */
         @media (max-width: 768px) {
             .hero-content { padding-top: 20px; }
-            .main-title { font-size: 1.8rem; }
-            .container { grid-template-columns: 1fr; }
+            .main-title { font-size: 2.2rem; -webkit-text-stroke: 2px #41a573; }
         }
-/* --- 投票按鈕 (底部置中懸浮版) --- */
-.vote-fab-centered {
-    position: fixed;
-    bottom: 30px; /* 距離視窗底部的高度 */
-    left: 0;
-    right: 0;
-    margin: 0 auto; /* 這三行組合是讓固定物件「水平置中」的關鍵 */
-    
-    z-index: 10000; /* 確保它是網頁中最上層的元素 */
-    
-    /* 寬度設定：手機優先 */
-    width: 90%; 
-    max-width: 500px; /* 電腦版限制最大寬度，避免太長 */
-    
-    /* 外觀設定 */
-    background: linear-gradient(135deg, #ff512f 0%, #dd2476 100%);
-    color: white;
-    border-radius: 50px; /* 膠囊形狀 */
-    box-shadow: 0 4px 20px rgba(221, 36, 118, 0.6); /* 強烈的發光陰影 */
-    
-    /* 內容排版 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 0; /* 增加高度，更顯眼 */
-    
-    /* 文字設定 */
-    text-decoration: none;
-    font-weight: 800;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
-    
-    /* 呼吸跳動動畫 */
-    animation: pulse-glow 2s infinite;
-    transition: all 0.3s ease;
-}
-
-.vote-icon {
-    font-size: 1.5rem;
-}
-
-/* 滑鼠移上去的特效 */
-.vote-fab-centered:hover {
-    background: linear-gradient(135deg, #ff6b4b 0%, #ff3d85 100%);
-    transform: scale(1.02) translateY(-3px); /* 輕微放大上浮 */
-    box-shadow: 0 10px 25px rgba(221, 36, 118, 0.8);
-    animation: none; /* 暫停呼吸動畫，避免視覺干擾 */
-}
-
-/* 呼吸燈動畫 (修正版，配合置中定位) */
-@keyframes pulse-glow {
-    0% {
-        box-shadow: 0 0 0 0 rgba(221, 36, 118, 0.7);
-        transform: scale(1);
-    }
-    50% {
-        /* 心跳膨脹 */
-        transform: scale(1.03); 
-    }
-    70% {
-        box-shadow: 0 0 0 20px rgba(221, 36, 118, 0); /* 光圈向外擴散 */
-        transform: scale(1.03);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(221, 36, 118, 0);
-        transform: scale(1);
-    }
-}
-
-/* --- 手機版與平板的微調 --- */
-@media (min-width: 768px) {
-    /* 平板與電腦版，稍微把按鈕往上提一點，避免貼底太近 */
-    .vote-fab-centered {
-        bottom: 40px;
-        width: 400px; /* 電腦版固定寬度，比較優雅 */
-    }
-}
-
+        @media (min-width: 768px) {
+            .vote-fab-centered { bottom: 40px; width: 400px; }
+        }
     </style>
 </head>
 <body>
@@ -357,25 +324,38 @@
         <div class="hero-content">
             <h2 class="sub-title">沙崙智慧綠能科學城</h2>
             <h1 class="main-title">供餐計畫提案 廠商遴選指南</h1>
+            
             <p class="hero-desc">
-                EO Delivery外送服務籌備中！匯集近40家多元餐飲，邀您投下你喜愛的餐飲店家，共同決定未來的供餐夥伴！
+               EO Delivery外送服務籌備中！匯集近40家多元餐飲，邀您投下你喜愛的餐飲店家，共同決定未來的供餐夥伴！
             </p>
 
             <div class="search-container">
-                <input type="text" class="search-input" id="searchInput" placeholder="搜尋廠商、特色料理...">
+                <input type="text" class="search-input" id="searchInput" placeholder="搜尋廠商、餐點種類、喜好...">
             </div>
         </div>
     </div>
 
-    <!-- 餐廳列表容器 -->
-    <div class="container" id="restaurantGrid">
-        <!-- JS 動態生成內容 -->
+    <!-- 餐廳列表容器 (分為三區) -->
+    <div class="container">
+        
+        <!-- 1. 正餐 / 一般店家 (1~27) -->
+        <h2 class="section-header" id="title-main">美味滿足・正餐時段供應</h2>
+        <div id="grid-main" class="restaurant-grid"></div>
+
+        <!-- 2. 早餐 (28~32) -->
+        <h2 class="section-header" id="title-breakfast">活力來源・晨間限定供應</h2>
+        <div id="grid-breakfast" class="restaurant-grid"></div>
+
+        <!-- 3. 飲品 (33~37) -->
+        <h2 class="section-header" id="title-drink">解渴首選・飲品供應店家</h2>
+        <div id="grid-drink" class="restaurant-grid"></div>
+
     </div>
 
     <!-- 置頂按鈕 -->
     <button id="scrollTopBtn" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
 
-<!-- 底部置中投票按鈕 (Call to Action) -->
+    <!-- 底部置中投票按鈕 -->
 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdKB3e-5PaRPaMI_nmSy8XsPoYoql9iwgdRrlybnpumXMOcZw/viewform?usp=header" target="_blank" class="vote-fab-centered">
     <span class="vote-icon">🗳️</span>
     <span>投下喜歡的店家</span>
@@ -385,12 +365,12 @@
         // --- 餐廳資料庫 (37間) ---
          const restaurants = [
             { id: 1, name: "1.綠蔬事務所", desc: "主打蔬食健康餐盒，與在地小農合作。從土地到餐桌，以簡單調味喚醒健康生活，同時愛惜我們所在的地球。", items: "健康餐盒、溫沙拉、小農食作", price: "$100 ~ $150", menu: "https://www.facebook.com/photo/?fbid=1158845056287598&set=a.812512197587554&locale=zh_TW", note: "素食" },
-            { id: 2, name: "2.小白屋", desc: "成大醫學院餐廳每日現做，營養師把關的健康餐盒。衛生美味，均一價75元，是學生必吃的營養高CP值選擇。", items: "阿里山烤腿、黃金豬排、滷排", price: "均一價 $75 /個", menu: "https://order.eating-out.co/#/restaurants/MTA4", note: "" },
-            { id: 3, name: "3.金吉伊山", desc: "東區高CP日料，食材新鮮料多。必吃炙燒厚切鮭魚壽司，油脂香氣迷人、份量實在。環境舒適，選擇豐富。", items: "壽司，關東煮，鍋燒，炸物", price: "$35 ~ $200", menu: "https://lh3.googleusercontent.com/p/AF1QipOVPbcPH7n8mBj80jN1VwhcfifYXlwGysCqbVZL=s1360-w1360-h1020-rw", note: "" },
-            { id: 4, name: "4.沛瑪刈包章魚燒", desc: "主打傳統古早味刈包，質地鬆軟綿Q，嚴選上好食材與滿滿內餡。每一口都真材實料，讓人難忘的絕妙滋味。", items: "古早味刈包、章魚燒、飲料", price: "$40 ~ $70", menu: "https://www.facebook.com/photo.php?fbid=1259112396013954&set=pb.100057456159046.-2207520000&type=3&locale=zh_TW", note: "" },
-            { id: 5, name: "5.木鱉果牛肉麵", desc: "台灣黃牛結合20種辛香與漢方，慢熬12小時的溫暖湯頭，像家人的用心。特色木鱉果汁限定供應中！", items: "牛肉麵、雞肉麵、拌飯、水餃", price: "$50 ~ $180", menu: "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwxw1VAU2l7spkKdUZPeJmOQtq07DXaFRyt4J_tIKuxSqnAqem8Q_D3c1NR_ZnDLA6d3rV3zWKKnhKHNgMg19Sh1w6tHthpT3qMre63LTsCslh3T-uKlDsfee49vWbTZ0S01TN3GpjFARZf=s1360-w1360-h1020-rw", note: "" },
+            { id: 2, name: "2.小白屋", desc: "成大醫學院餐廳每日現做，營養師把關的健康餐盒。衛生美味，均一價75元，是學生必吃的營養高CP值選擇。", items: "阿里山烤腿、黃金豬排、各式便當", price: "均一價 $75 /個", menu: "https://order.eating-out.co/#/restaurants/MTA4", note: "" },
+            { id: 3, name: "3.金吉伊山", desc: "東區高CP日料，食材新鮮料多。必吃炙燒厚切鮭魚壽司，油脂香氣迷人、份量實在。環境舒適，選擇豐富。", items: "壽司，關東煮，鍋燒，炸物", price: "$35 ~ $200", menu: "https://order.eating-out.co/#/restaurants/NzY=", note: "" },
+            { id: 4, name: "4.沛瑪刈包章魚燒", desc: "主打傳統古早味刈包，質地鬆軟綿Q，嚴選上好食材與滿滿內餡。每一口都真材實料，讓人難忘的絕妙滋味。", items: "古早味刈包、章魚燒、飲料", price: "$40 ~ $70", menu: "https://order.eating-out.co/#/restaurants/OTg=", note: "" },
+            { id: 5, name: "5.木鱉果牛肉麵", desc: "台灣黃牛結合20種辛香與漢方，慢熬12小時的溫暖湯頭，像家人的用心。特色木鱉果汁限定供應中！", items: "牛肉麵、雞肉麵、拌飯、水餃", price: "$50 ~ $180", menu: "https://order.eating-out.co/#/restaurants/MTM0", note: "" },
             { id: 6, name: "6.廣興燒臘快餐便當", desc: "道地港式燒臘，肉品全手工自製，用餐時段常排隊。便當肉量澎湃，必吃軟嫩多汁油雞腿，愛吃肉者首選。", items: "三寶飯、叉燒飯、各式便當", price: "$110", menu: "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwBsh1m3QtDGMtUHbJB8zDIJKJrg3WKjGdn5wCWghz9i07GVycZJjUej0gIuVia3xVf78ICz867_E4b7aYAjhy2nPbrhRFKt2itdYY7qMsmXElXkl3ZvG9vwwhTY7AVlHwAm4WU=s1360-w1360-h1020-rw", note: "" },
-            { id: 7, name: "7.野餐，日", desc: "專為忙碌外食族打造的健康均衡餐盒，嚴選優質食材。讓你在日常奔波中，也能吃得安心、營養、無負擔。", items: "舒肥雞胸、嫩牛、健康餐盒", price: "$105 ~ $170", menu: "https://lh3.googleusercontent.com/p/AF1QipM_PgjIYxUruKtwzFGGxX_bdwu3pQbW5g208_qE=s1360-w1360-h1020-rw", note: "" },
+            { id: 7, name: "7.野餐，日", desc: "專為忙碌外食族打造的健康均衡餐盒，嚴選優質食材。讓你在日常奔波中，也能吃得安心、營養、無負擔。", items: "舒肥雞胸、水煮餐、健康餐盒", price: "$105 ~ $170", menu: "https://lh3.googleusercontent.com/p/AF1QipM_PgjIYxUruKtwzFGGxX_bdwu3pQbW5g208_qE=s1360-w1360-h1020-rw", note: "" },
             { id: 8, name: "8.誠實咖喱飯", desc: "在地人氣名單，主打厚實無骨雞腿排咖哩，CP值高。每份附半熟蛋與味噌湯，蔬菜量豐富，營養均衡又飽足。", items: "咖哩飯、烏龍麵、焗烤、丼飯", price: "$80 ~ $255", menu: "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSweYAgZ2e_T5wgdkh-XYHTSiGEfLRadwWgMbQjaoSDtzbQk05On_So77x-tVBuJGT8kppYhi8c4ElvEhKWvjPj-gBDqXgJouaeJi7cnN0TCvg_PcWmgY7mtSH-YWT3OAlYOkdyjlo9KvH7E=s1360-w1360-h1020-rw", note: "" },
             { id: 9, name: "9.卡西法No.46廚房", desc: "手作美式漢堡、特色套餐與鍋燒系列，日台美式料理一次滿足。選擇多樣的高CP值小店，還有炸物與飲品。", items: "定食、鍋燒、燉飯、湯麵、蔬食", price: "$109 ~ $369", menu: "https://www.facebook.com/photo.php?fbid=1253932680088454&set=pb.100064152000158.-2207520000&type=3&locale=zh_TW", note: "" },
             { id: 10, name: "10.三玳蔬食", desc: "療癒撸貓系餐廳，主打韓式蔬食。辣炒年糕拉麵開胃，擔擔肉燥咖哩鹹香下飯，另有咖啡與千層蛋糕。", items: "蔬食意麵、烏龍麵、咖哩飯", price: "$130 ~ $200", menu: "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSz9gUxY3B4Dz-whDDGj7cnjYxs6x1q5LasdEBC3APM6OolQlneZXM_upB6WxSMqz8PadFEpfAtptsfjNe2p0ij1qfOQnOhrkkzT_AZiROrDNtdRA2i3uOQqyIqGgzKoXIpQqI3568EjjRM=s1360-w1360-h1020-rw", note: "素食" },
@@ -402,7 +382,7 @@
             { id: 16, name: "16.嫩嫩燒肉飯", desc: "大火快炒鎖住鮮嫩肉質，淋上日式醬汁超下飯。百元有找的燒肉、燒雞腿與雙拼招牌，深受上班族喜愛。", items: "燒肉飯、瓜仔飯、雞排飯", price: "$80 ~ $120", menu: "https://www.facebook.com/photo.php?fbid=735681809512896&set=pb.100092132494828.-2207520000&type=3", note: "" },
             { id: 17, name: "17.圓便當910方餐盒", desc: "家庭式餐飲，主打健康豐富的外帶點心與便當。選擇多樣吃不膩，亦可訂製公司會議餐盒，料多美味。", items: "丼飯、壽司、沙拉、卷餅", price: "$30 ~ $130", menu: "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxd5tIQLIwD8U3_5l-by__ZFE76iW2_Isibb5cGMnPRfjaLIT9r9FADMYvnojwMXmylwgZAHzfQZZWUf39Db_vIF0bWRzpamnZg2mN2TRiR7S663PIPUEf4AaZIofKKahEnPI3KS_YwhvCQ=s1360-w1360-h1020-rw", note: "" },
             { id: 18, name: "18.天青好食光", desc: "人氣嫩滑豬肉飯與經典瓜仔肉飯，滷汁香濃。燒肉涮嘴、雞腿香嫩多汁，配菜不油膩，米飯粒粒分明。", items: "便當", price: "$75 ~ $120", menu: "https://lh3.googleusercontent.com/p/AF1QipM1CVpnpdoRWuwEWfwdbPHql9swmXl-tS6CpEHf=s1360-w1360-h1020-rw", note: "" },
-            { id: 19, name: "19.肚日子 ", desc: "台南東區外帶自取首選，主打六大營養素黃金比例。舒肥雞、豬牛魚鴨多樣主菜，配當季蔬菜與紫米飯。", items: "健康餐盒", price: "$115 ~ $165", menu: "https://lh3.googleusercontent.com/p/AF1QipOkJHpwbJpoF2uDCaAx-XL4wt_IpiHHgE_YZaZ-=s1360-w1360-h1020-rw", note: "" },
+            { id: 19, name: "19.肚日子 ", desc: "台南東區外帶自取首選，主打六大營養素黃金比例。舒肥雞、豬牛魚鴨多樣主菜，配當季蔬菜與紫米飯。", items: "健康餐盒、水煮餐", price: "$115 ~ $165", menu: "https://lh3.googleusercontent.com/p/AF1QipOkJHpwbJpoF2uDCaAx-XL4wt_IpiHHgE_YZaZ-=s1360-w1360-h1020-rw", note: "" },
             { id: 20, name: "20.萬福居", desc: "豬腳滷得入味，部位齊全肥瘦可選。大推滷油豆腐與手作筍乾。敢吃辣可搭辣醬淋滷汁，風味更過癮。", items: "腿庫、便當、麵線、肉燥飯", price: "$75 ~ $140", menu: "https://lh3.googleusercontent.com/p/AF1QipP1ZFlobXrgiKYIG4l3m41X_2XwTyfqLFeUgg0y=s1360-w1360-h1020-rw", note: "" },
             { id: 21, name: "21.找學長食堂", desc: "主廚嚴選食材現煮，絕不使用調理包。咖喱醬、濃湯與各式醬料皆手工特調，每一口都吃得到用心。", items: "義大利麵、燉飯、炸物", price: "$100 ~ $160", menu: "https://www.facebook.com/photo.php?fbid=1178809354055979&set=pb.100057807753356.-2207520000&type=3&locale=zh_TW", note: "" },
             { id: 22, name: "22.吶！鬆餅", desc: "長榮大學周邊人氣店，現點現做。餅皮酥脆、內餡飽滿，冷了也好吃。點一份美式鬆餅當正餐超滿足！", items: "可頌鬆餅、美式鬆餅、飲品", price: "$45 ~ $130", menu: "https://lh3.googleusercontent.com/p/AF1QipMzQoatom-ZQgzs14jUZYJYH9qNKshvSvoiH2Lr=s1360-w1360-h1020-rw", note: "" },
@@ -411,50 +391,38 @@
             { id: 25, name: "25.迎麵", desc: "古早味肉燥麵搭自家熬煮高湯。麵條Q彈、榨菜脆口，網推辣味榨菜肉絲麵，配自製辣椒醬夠勁又耐喝。", items: "乾麵、湯麵、水餃、滷味", price: "$45 ~ $110", menu: "https://lh3.googleusercontent.com/p/AF1QipOHKXzoivE_Mjjgn9Sq_JTa-loNVJk4egkVRsUi=s1360-w1360-h1020-rw", note: "" },
             { id: 26, name: "26.拾香蔬食鍋燒", desc: "嚴選8種蔬果慢熬8小時的天然湯頭，甘甜濃郁。搭配特選麵條與新鮮時蔬，品嚐Bon式家族的獨特韻味。", items: "蔬食鍋燒、咖哩飯、炸物、冰品", price: "$90 ~ $160", menu: "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzNTuQWC5Y3y5QVr-0FvxKKMwQQaZ3Is4Fm1cTMfIyUxPxB7kwxpqNTe-cqrG8P9yGv-GiowLUo6Vbf5EzswR6_52aPsQLfwh3nbqY75lMVe3f78tJ4KGPx31kJuzQPcAnUWdHPgivYc3AU=s1360-w1360-h1020-rw", note: "素食" },
             { id: 27, name: "27.秀英・日日有蔬事", desc: "傳承林秀英阿嬤飄香逾50年的好手藝，延續記憶中的滋味。主打蔬食蛋炒飯、煎餃，分享懷舊美味。", items: "蔬食蛋炒飯、冬粉、煎餃", price: "$85 ~ $260", menu: "https://lh3.googleusercontent.com/gps-cs/AHvCnQxYQ2p5ANpvMMIS4kXkDtkFRy80pC8ZfG59ncHXV3JPXSo6KSIjwZNHbKJr99k31RK407WQuIdsGQcXl-upBbyYH0FNE7wdIlUbMmJ20eg7vWiXD79fsrX4Lfn0LojNwYsREhVEbEg82Gay=s1360-w1360-h1020-rw", note: "素食" },
-            { id: 28, name: "28.麥味登", desc: "創立於台北大稻埕，寓意「溫暖每一天」。以老厝邊的人情味與手作早午餐，讓平凡的日常多一點溫度。", items: "各式早餐、飲品", price: "$30 ~ $60", menu: "https://www.mwd.com.tw/index.php?code=list&ids=356", note: "" },
-            { id: 29, name: "29.I's Cafe&Food", desc: "早餐到午餐選擇多元。必吃超酥脆皮蛋餅；南洋叻沙鍋燒麵湯頭濃郁、配料澎湃，是高CP值的滿足之選。", items: "各式早餐、飲品", price: "$30 ~ $80", menu: "https://www.facebook.com/share/p/1bJHwGGJ36/", note: "" },
-            { id: 30, name: "30.POKA POKA 手作早午餐", desc: "傳統早餐融入西式靈魂，環境整潔簡約。早午餐盤澎湃豐富，有肉有菜有吐司附紅茶，輕鬆享用無負擔。", items: "各式早餐、飲品", price: "$30 ~ $70", menu: "https://www.facebook.com/photo.php?fbid=410207551540202&set=pb.100076528820136.-2207520000&type=3", note: "" },
-            { id: 31, name: "31.早安美芝城歸仁大潭", desc: "以「好朋友家的廚房」為理念，與在地食材合作。提供安心的中西式早餐，環境舒適，是開啟一天的活力選擇。", items: "各式早餐、飲品", price: "$40 ~ $80", menu: "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzBYZ65MKUmbEapWBsAPbOClB1Yhg7V4L9U3YWP_w0rl5VpLSvl-cGRfaKD_ymvJBEkaU5T2FNrZ1u7OtZLkI_MvSa9v5-VmfJHo4PaJxPcyhEfBViCQdbhQFAPkusvvYKicZLGiDqV213Q=s1360-w1360-h1020-rw", note: "" },
-            { id: 32, name: "32.晨光蛋堡", desc: "用料實在、食材新鮮。推薦Q彈蘑菇鐵板麵與越吃越香的熱狗蛋捲。環境乾淨服務親切，回訪率高的早餐店。", items: "各式早餐、飲品", price: "$50 ~ $100", menu: "https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/501349256_1250541410415595_872170124794157652_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=f727a1&_nc_ohc=ypdnLXo3F0cQ7kNvwFn7EA0&_nc_oc=AdnbQEI1IaVZ0hB5EgeMCECToBR41NR0MANa9c-k1U_6H0grGdmcqsTzyVug0Blp7KM&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=D52-2V6yhy6p6ddHL2yDqg&oh=00_Afq2AqQY4cnUTweAiKUEdJOSzSK2SvErVRxCQk_MShB2ug&oe=69615524", note: "" },
-            { id: 33, name: "33.松本鮮奶茶", desc: "起家於五甲自強夜市，堅持每日直送特選牛乳。嚴選茶葉與濃厚牛乳調製的招牌紅茶牛奶，是經典好味道。", items: "各式飲品、鮮奶茶", price: "$30 ~ $60", menu: "https://www.songbenmilktea2015.com/archive/image/product1/aa674d735749ab8d.jpg", note: "" },
-            { id: 34, name: "34.淳菊堂", desc: "台南在地自創品牌，主打菊花及特調天然養生茶飲。堅持天然無毒與嚴格把關，用心掬取每朵純粹滋味。", items: "各式飲品、菊花茶飲", price: "$30 ~ $80", menu: "https://www.puretea2021.com/images/575921?stamp=1765937240", note: "" },
-            { id: 35, name: "35.拎茶 ", desc: "平價不妥協品質，以純粹茶香泡出溫暖時光。選擇豐富、真材實料，從早到晚都能帶給你剛剛好的滿足。", items: "各式飲品、果汁、氣泡飲", price: "$30 ~ $70", menu: "http://facebook.com/photo.php?fbid=122147204192972074&set=pb.61579162239952.-2207520000&type=3", note: "" },
-            { id: 36, name: "36.Cold Blue淡藍", desc: "結合冷萃咖啡的低溫慢萃與手搖便捷。以純粹風味為核心，讓你在忙碌日常也能隨時享受微苦帶甜的精緻飲品。", items: "各式飲品、冷萃咖啡、奶蓋", price: "$40 ~ $80", menu: "https://www.facebook.com/photo.php?fbid=122162433734770222&set=pb.61573106665037.-2207520000&type=3", note: "" },
-            { id: 37, name: "37.果汁共和國", desc: "堅持選用新鮮蔬果每日現打，闆娘特調比例順口好喝。推薦奇異果、紅蘿蔔汁及季節限定的酪梨牛奶。", items: "現打果汁飲品", price: "$50 ~ $120", menu: "https://www.facebook.com/share/p/1Bs247igFG/", note: "" }
+            { id: 28, name: "28.大口咬定", desc: "創意潛艇堡專賣，份量大超飽足、價格親民。另有低卡健康水煮餐與客製化餐盒，想吃什麼自己夾，夾多少算多少。", items: "潛艇堡、素食堡、水煮餐、沙拉", price: "$50 ~ $100", menu: "https://order.eating-out.co/#/restaurants/Mjk=", note: "" },
+            { id: 29, name: "29.麥味登", desc: "創立於台北大稻埕，寓意「溫暖每一天」。以老厝邊的人情味與手作早午餐，讓平凡的日常多一點溫度。", items: "各式早餐、飲品", price: "$30 ~ $60", menu: "https://www.mwd.com.tw/index.php?code=list&ids=356", note: "" },
+            { id: 30, name: "30.I's Cafe&Food", desc: "早餐到午餐選擇多元。必吃超酥脆皮蛋餅；南洋叻沙鍋燒麵湯頭濃郁、配料澎湃，是高CP值的滿足之選。", items: "各式早餐、飲品", price: "$30 ~ $80", menu: "https://www.facebook.com/share/p/1bJHwGGJ36/", note: "" },
+            { id: 31, name: "31.POKA POKA 手作早午餐", desc: "傳統早餐融入西式靈魂，環境整潔簡約。早午餐盤澎湃豐富，有肉有菜有吐司附紅茶，輕鬆享用無負擔。", items: "各式早餐、飲品", price: "$30 ~ $70", menu: "https://www.facebook.com/photo.php?fbid=410207551540202&set=pb.100076528820136.-2207520000&type=3", note: "" },
+            { id: 32, name: "32.早安美芝城歸仁大潭", desc: "以「好朋友家的廚房」為理念，與在地食材合作。提供安心的中西式早餐，環境舒適，是開啟一天的活力選擇。", items: "各式早餐、飲品", price: "$40 ~ $80", menu: "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzBYZ65MKUmbEapWBsAPbOClB1Yhg7V4L9U3YWP_w0rl5VpLSvl-cGRfaKD_ymvJBEkaU5T2FNrZ1u7OtZLkI_MvSa9v5-VmfJHo4PaJxPcyhEfBViCQdbhQFAPkusvvYKicZLGiDqV213Q=s1360-w1360-h1020-rw", note: "" },
+            { id: 33, name: "33.晨光蛋堡", desc: "用料實在、食材新鮮。推薦Q彈蘑菇鐵板麵與越吃越香的熱狗蛋捲。環境乾淨服務親切，回訪率高的早餐店。", items: "各式早餐、飲品", price: "$50 ~ $100", menu: "https://scontent.fkhh1-2.fna.fbcdn.net/v/t39.30808-6/501349256_1250541410415595_872170124794157652_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=f727a1&_nc_ohc=ypdnLXo3F0cQ7kNvwFn7EA0&_nc_oc=AdnbQEI1IaVZ0hB5EgeMCECToBR41NR0MANa9c-k1U_6H0grGdmcqsTzyVug0Blp7KM&_nc_zt=23&_nc_ht=scontent.fkhh1-2.fna&_nc_gid=D52-2V6yhy6p6ddHL2yDqg&oh=00_Afq2AqQY4cnUTweAiKUEdJOSzSK2SvErVRxCQk_MShB2ug&oe=69615524", note: "" },
+            { id: 34, name: "34.松本鮮奶茶", desc: "起家於五甲自強夜市，堅持每日直送特選牛乳。嚴選茶葉與濃厚牛乳調製的招牌紅茶牛奶，是經典好味道。", items: "各式飲品、鮮奶茶", price: "$30 ~ $60", menu: "https://www.songbenmilktea2015.com/archive/image/product1/aa674d735749ab8d.jpg", note: "" },
+            { id: 35, name: "35.淳菊堂", desc: "台南在地自創品牌，主打菊花及特調天然養生茶飲。堅持天然無毒與嚴格把關，用心掬取每朵純粹滋味。", items: "各式飲品、菊花茶飲", price: "$30 ~ $80", menu: "https://www.puretea2021.com/images/575921?stamp=1765937240", note: "" },
+            { id: 36, name: "36.拎茶 ", desc: "平價不妥協品質，以純粹茶香泡出溫暖時光。選擇豐富、真材實料，從早到晚都能帶給你剛剛好的滿足。", items: "各式飲品、果汁、氣泡飲", price: "$30 ~ $70", menu: "http://facebook.com/photo.php?fbid=122147204192972074&set=pb.61579162239952.-2207520000&type=3", note: "" },
+            { id: 37, name: "37.Cold Blue淡藍", desc: "結合冷萃咖啡的低溫慢萃與手搖便捷。以純粹風味為核心，讓你在忙碌日常也能隨時享受微苦帶甜的精緻飲品。", items: "各式飲品、冷萃咖啡、奶蓋", price: "$40 ~ $80", menu: "https://www.facebook.com/photo.php?fbid=122162433734770222&set=pb.61573106665037.-2207520000&type=3", note: "" },
+            { id: 38, name: "38.果汁共和國", desc: "堅持選用新鮮蔬果每日現打，闆娘特調比例順口好喝。推薦奇異果、紅蘿蔔汁及季節限定的酪梨牛奶。", items: "現打果汁飲品", price: "$50 ~ $120", menu: "https://www.facebook.com/share/p/1Bs247igFG/", note: "" }
         ];
 
-        // --- 渲染卡片 ---
-        function renderGrid(data) {
-            const grid = document.getElementById('restaurantGrid');
-            grid.innerHTML = '';
+        // --- 生成卡片 HTML 的輔助函式 ---
+        function createCard(rest) {
+            const slides = `
+                <img src="photo/${rest.id}-01.jpg" class="carousel-img" onerror="this.style.display='none'" loading="lazy">
+                <img src="photo/${rest.id}-02.jpg" class="carousel-img" onerror="this.style.display='none'" loading="lazy">
+                <img src="photo/${rest.id}-03.jpg" class="carousel-img" onerror="this.style.display='none'" loading="lazy">
+            `;
 
-            if (data.length === 0) {
-                grid.innerHTML = '<p style="text-align:center;color:#333;grid-column:1/-1;">找不到相關廠商。</p>';
-                return;
-            }
+            const logoPath = `logo/${rest.id}.jpg`;
+            const noteHtml = rest.note ? `<div class="note-text">★ ${rest.note}</div>` : '';
 
-            data.forEach(rest => {
-                // 圖片路徑更新為 photo/ 及 logo/
-                const slides = `
-                    <img src="photo/${rest.id}-01.jpg" class="carousel-img" onerror="this.style.display='none'" loading="lazy">
-                    <img src="photo/${rest.id}-02.jpg" class="carousel-img" onerror="this.style.display='none'" loading="lazy">
-                    <img src="photo/${rest.id}-03.jpg" class="carousel-img" onerror="this.style.display='none'" loading="lazy">
-                `;
-
-                const logoPath = `logo/${rest.id}.jpg`;
-                const noteHtml = rest.note ? `<div class="note-text">★ ${rest.note}</div>` : '';
-
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
+            return `
+                <div class="card">
                     <div class="card-header">
                         <img src="${logoPath}" class="card-logo" onerror="this.src='https://via.placeholder.com/60?text=${rest.id}'">
                         <div class="card-title">${rest.name}</div>
                     </div>
                     <div class="carousel" id="carousel-${rest.id}">
-                        <div class="carousel-track">
-                            ${slides}
-                        </div>
+                        <div class="carousel-track">${slides}</div>
                         <button class="carousel-btn prev" onclick="scrollCarousel('${rest.id}', -1)">&#10094;</button>
                         <button class="carousel-btn next" onclick="scrollCarousel('${rest.id}', 1)">&#10095;</button>
                     </div>
@@ -468,9 +436,39 @@
                     <div class="card-footer">
                         <a href="${rest.menu}" class="menu-btn" target="_blank">查看菜單</a>
                     </div>
-                `;
-                grid.appendChild(card);
-            });
+                </div>
+            `;
+        }
+
+        // --- 核心：分區渲染 ---
+        function renderGrid(data) {
+            // 1. 分類
+            const mainData = data.filter(r => r.id <= 28);
+            const breakfastData = data.filter(r => r.id >= 29 && r.id <= 33);
+            const drinkData = data.filter(r => r.id >= 34);
+
+            // 2. 輔助渲染函式 (負責處理標題顯示/隱藏)
+            const renderSection = (items, containerId, titleId) => {
+                const container = document.getElementById(containerId);
+                const title = document.getElementById(titleId);
+                container.innerHTML = ''; // 清空
+
+                if (items.length === 0) {
+                    // 若該區無資料（例如搜尋過濾後），隱藏標題與網格
+                    container.style.display = 'none';
+                    title.style.display = 'none';
+                } else {
+                    // 有資料則顯示
+                    container.style.display = 'grid';
+                    title.style.display = 'flex'; // 標題恢復顯示
+                    container.innerHTML = items.map(rest => createCard(rest)).join('');
+                }
+            };
+
+            // 3. 執行渲染
+            renderSection(mainData, 'grid-main', 'title-main');
+            renderSection(breakfastData, 'grid-breakfast', 'title-breakfast');
+            renderSection(drinkData, 'grid-drink', 'title-drink');
         }
 
         // --- 輪播功能 ---
@@ -480,13 +478,13 @@
             const scrollAmount = container.clientWidth;
             const maxScroll = container.scrollWidth - container.clientWidth;
             
-            if (direction === 1) { // Next
+            if (direction === 1) { 
                 if (container.scrollLeft >= maxScroll - 5) {
                     container.scrollTo({ left: 0, behavior: 'smooth' });
                 } else {
                     container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
                 }
-            } else { // Prev
+            } else { 
                 if (container.scrollLeft <= 5) {
                     container.scrollTo({ left: container.scrollWidth, behavior: 'smooth' });
                 } else {
@@ -501,6 +499,7 @@
             const filtered = restaurants.filter(r => 
                 r.name.toLowerCase().includes(term) || 
                 r.items.toLowerCase().includes(term) ||
+                r.desc.toLowerCase().includes(term) || 
                 (r.note && r.note.toLowerCase().includes(term))
             );
             renderGrid(filtered);
