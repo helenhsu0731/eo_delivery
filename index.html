@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9QD7VE9597"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9QD7VE9597');
+</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="eod_logo.jpg" type="image/jpg">
@@ -402,7 +413,9 @@
     <button id="scrollTopBtn" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
 
     <!-- 底部置中投票按鈕 -->
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSdKB3e-5PaRPaMI_nmSy8XsPoYoql9iwgdRrlybnpumXMOcZw/viewform?usp=header" target="_blank" class="vote-fab-centered">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSdKB3e-5PaRPaMI_nmSy8XsPoYoql9iwgdRrlybnpumXMOcZw/viewform?usp=header" target="_blank" class="vote-fab-centered" 
+   onclick="gtag('event', 'click_vote', { 'event_category': 'button', 'event_label': 'Floating Vote Button' });">
+ 
     <span class="vote-icon">🗳️</span>
     <span>投下喜歡的店家</span>
 </a>
