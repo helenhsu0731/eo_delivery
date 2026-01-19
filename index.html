@@ -320,8 +320,8 @@
 /* --- 品牌推薦橫幅 (EATING-OUT) --- */
 .promo-banner {
     max-width: 1200px;
-    margin: 30px auto 10px auto; /* 上下留白 */
-    padding: 0 20px; /* 左右留邊，避免手機版貼齊螢幕邊緣 */
+    margin: 30px auto 10px auto;
+    padding: 0 20px;
     position: relative;
     box-sizing: border-box;
 }
@@ -330,23 +330,26 @@
     display: block;
     width: 100%;
     border-radius: 15px;
-    overflow: hidden; /* 圓角裁切 */
-    transition: transform 0.3s ease;
+    overflow: hidden;
+    
 }
-
 
 .banner-img {
     width: 100%;
-    height: auto;
+    height: auto; /* 關鍵：高度自動，隨寬度等比縮放 */
     display: block;
-    object-fit: cover; /* 確保圖片填滿容器 */
+    /* 移除 object-fit: cover; 避免裁切 */
 }
 
-/* 手機版微調：如果覺得手機版圖片太小，可以強制設定最小高度 */
+/* 手機版微調 */
 @media (max-width: 768px) {
+    .promo-banner {
+        padding: 0 10px; /* 手機版左右留白少一點，讓圖片可以大一點 */
+    }
+    
     .banner-img {
-        min-height: 150px; /* 確保手機版廣告不會變成一條細線 */
-        object-position: center; /* 圖片居中顯示 */
+        /* 移除 min-height 設定 */
+        min-height: auto; 
     }
 }
     </style>
